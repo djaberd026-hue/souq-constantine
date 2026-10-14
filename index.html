@@ -1,0 +1,67 @@
+<!DOCTYPE html><html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#087a4b">
+<title>سوق قسنطينة</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,sans-serif;background:#f5f7f6;color:#222}
+header{background:#087a4b;color:white;padding:20px 15px}
+header h1{margin:0 0 8px;font-size:26px}
+header p{margin:0}
+.search{padding:15px;background:white;display:flex;gap:8px}
+input{min-width:0;flex:1;padding:12px;border:1px solid #ddd;border-radius:8px;font-size:16px}
+button{border:0;border-radius:8px;background:#087a4b;color:white;padding:12px;cursor:pointer}
+h2{padding:0 15px;font-size:20px}
+.categories{display:flex;gap:8px;overflow:auto;padding:0 15px 12px}
+.categories button{white-space:nowrap}
+.products{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;padding:12px}
+.product{background:white;border-radius:12px;padding:12px;box-shadow:0 2px 7px #00000010}
+.photo{height:95px;background:#e7f3ec;border-radius:8px;display:grid;place-items:center;font-size:42px}
+.product h3{font-size:16px;margin:10px 0}
+.price{color:#087a4b;font-weight:bold}
+.product button{width:100%;margin-top:8px}
+footer{text-align:center;padding:22px;color:#666;font-size:13px}
+</style>
+</head>
+<body>
+<header>
+<h1>🛍️ سوق قسنطينة</h1>
+<p>سوقك الإلكتروني لبيع وشراء المنتجات</p>
+</header>
+<div class="search">
+<input id="search" placeholder="ابحث عن منتج..." oninput="render()">
+<button onclick="render()">بحث</button>
+</div>
+<h2>الأقسام</h2>
+<div class="categories">
+<button onclick="category='الكل';render()">الكل</button>
+<button onclick="category='إلكترونيات';render()">إلكترونيات</button>
+<button onclick="category='ملابس';render()">ملابس</button>
+<button onclick="category='سيارات';render()">السيارات</button>
+<button onclick="category='المنزل';render()">المنزل</button>
+</div>
+<h2>منتجات تجريبية</h2>
+<div class="products" id="products"></div>
+<footer>سوق قسنطينة © 2026<br>نسخة تجريبية قيد التطوير</footer>
+<script>
+const items=[
+{name:"هاتف ذكي",price:"25000 دج",cat:"إلكترونيات",emoji:"📱"},
+{name:"سماعات",price:"2500 دج",cat:"إلكترونيات",emoji:"🎧"},
+{name:"قميص",price:"1800 دج",cat:"ملابس",emoji:"👕"},
+{name:"حذاء رياضي",price:"4500 دج",cat:"ملابس",emoji:"👟"},
+{name:"قطعة سيارة",price:"3500 دج",cat:"سيارات",emoji:"🔧"},
+{name:"مصباح منزلي",price:"1200 دج",cat:"المنزل",emoji:"💡"}
+];
+let category="الكل";
+function render(){
+const q=document.getElementById("search").value.trim().toLowerCase();
+const filtered=items.filter(p=>(category==="الكل"||p.cat===category)&&p.name.toLowerCase().includes(q));
+document.getElementById("products").innerHTML=filtered.map(p=>`<div class="product"><div class="photo">${p.emoji}</div><h3>${p.name}</h3><div class="price">${p.price}</div><button onclick="contact('${p.name}')">طلب المنتج</button></div>`).join("")||"<p>لا توجد منتجات مطابقة.</p>";
+}
+function contact(name){alert("هذا نموذج تجريبي. سنضيف التواصل مع البائع في الخطوات القادمة.");}
+render();
+</script>
+</body>
+</html>
